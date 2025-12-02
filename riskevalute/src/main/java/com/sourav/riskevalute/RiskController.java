@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/risk")
+@CrossOrigin(origins = "*")   // for CORS
 public class RiskController {
 
     @Autowired

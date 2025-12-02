@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Engine Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        .upload-box { border: 2px dashed #3498db; padding: 30px; text-align: center; margin-bottom: 20px; border-radius: 5px; }
+        button { background-color: #3498db; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-size: 16px; }
+        button:hover { background-color: #2980b9; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        
+        .flag-RED { background-color: #ffcccc; color: #a94442; font-weight: bold; }
+        .flag-AMBER { background-color: #fff3cd; color: #856404; font-weight: bold; }
+        .flag-GREEN { background-color: #d4edda; color: #155724; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏦 Early Risk Signal System</h1>
+    <p>Upload the daily transaction batch file (CSV) to scan for delinquency risks.</p>
+    
+    <div class="upload-box">
+        <input type="file" id="csvFile" accept=".csv" />
+        <br><br>
+        <button onclick="analyzeRisk()">Analyze Portfolio</button>
+    </div>
+
+    <div id="status"></div>
+
+    <table id="resultsTable" style="display:none;">
+        <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Spend Change</th>
+                <th>Cash WD%</th>
+                <th>Risk Flag</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    async function analyzeRisk() {
+        const fileInput = document.getElementById('csvFile');
+        const statusDiv = document.getElementById('status');
+        const table = document.getElementById('resultsTable');
+        const tbody = document.getElementById('tableBody');
+
+        if(fileInput.files.length === 0) {
+            alert("Please select a file first!");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", fileInput.files[0]);
+
+        statusDiv.innerHTML = "⏳ Processing with Risk Engine API...";
+        tbody.innerHTML = ""; // Clear previous results
+
+        try {
+            // API Call
+            const response = await fetch('http://localhost:9090/api/risk/analyze', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) throw new Error("API Error");
+
+            const data = await response.json();
+            
+            statusDiv.innerHTML = `✅ Analysis Complete. Processed ${data.length} records.`;
+            table.style.display = "table";
+
+            // Sort so RED is first
+            data.sort((a, b) => (a.riskFlag === 'RED' ? -1 : 1));
+
+            data.forEach(cust => {
+                const row = `<tr>
+                    <td>${cust.customerId}</td>
+                    <td>${cust.spendChange}%</td>
+                    <td>${cust.cashWithdrawal}%</td>
+                    <td class="flag-${cust.riskFlag}">${cust.riskFlag}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+
+        } catch (error) {
+            statusDiv.innerHTML = "❌ Error connecting to API. Is Docker running?";
+            console.error(error);
+        }
+    }
+</script>
+
+</body>
+</html>
