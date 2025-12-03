@@ -20,7 +20,7 @@ Unlike traditional models that rely on lag indicators (like Days Past Due), this
 
 ## ⚙️ Tech Stack
 * **Language:** Java 25
-* **Framework:** Spring Boot 3.3.x
+* **Framework:** Spring Boot 4.0.0
 * **Containerization:** Docker (Alpine Linux base)
 * **Data Processing:** OpenCSV Library
 * **Frontend:** HTML5, CSS3, Vanila JavaScript
