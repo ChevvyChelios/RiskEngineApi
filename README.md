@@ -5,10 +5,11 @@
 **Status:** Prototype Complete  
 **Tech Stack:** Java 25, Spring Boot, Docker, HTML5/JS  
 
-**API link:** [https://risk-api-c7u2.onrender.com](https://risk-api-c7u2.onrender.com) *API may take upto 60s to load for the first time*
-**Demo Page:** [https://demo-omega-blue.vercel.app/](https://demo-omega-blue.vercel.app/)
+**API link:** <a href="https://risk-api-c7u2.onrender.com" target="_blank" rel="noopener noreferrer">https://risk-api-c7u2.onrender.com</a> (*API may take upto 60s to load for the first time*)
 
-**Docker image:** [![Docker Image](https://img.shields.io/badge/docker-image-blue)][https://hub.docker.com/repository/docker/souravsarania/javaapi/general](https://hub.docker.com/repository/docker/souravsarania/javaapi/general)
+**Demo Page:** <a href="https://demo-omega-blue.vercel.app/" target="_blank" rel="noopener noreferrer">https://demo-omega-blue.vercel.app/</a>
+
+**Docker image:** [![Docker Image](https://img.shields.io/badge/docker-image-blue)] [https://hub.docker.com/repository/docker/souravsarania/javaapi/general](https://hub.docker.com/repository/docker/souravsarania/javaapi/general)
 
 ---
 
