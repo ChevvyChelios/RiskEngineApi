@@ -5,6 +5,11 @@
 **Status:** Prototype Complete  
 **Tech Stack:** Java 25, Spring Boot, Docker, HTML5/JS  
 
+**API link:** [https://risk-api-c7u2.onrender.com](https://risk-api-c7u2.onrender.com) *API may take upto 60s to load for the first time*
+**Demo Page:** [https://demo-omega-blue.vercel.app/](https://demo-omega-blue.vercel.app/)
+
+**Docker image:** [![Docker Image](https://img.shields.io/badge/docker-image-blue)][https://hub.docker.com/repository/docker/souravsarania/javaapi/general](https://hub.docker.com/repository/docker/souravsarania/javaapi/general)
+
 ---
 
 ## 📖 Overview
@@ -20,14 +25,14 @@ Unlike traditional models that rely on lag indicators (like Days Past Due), this
 
 ## ⚙️ Tech Stack
 * **Language:** Java 25
-* **Framework:** Spring Boot 3.3.x
+* **Framework:** Spring Boot 4.0.0
 * **Containerization:** Docker (Alpine Linux base)
 * **Data Processing:** OpenCSV Library
 * **Frontend:** HTML5, CSS3, Vanila JavaScript
 
 ---
 
-## 🛠️ How to Run (The Easy Way: Docker)
+## 🛠️ How to Run on your PC (The Easy Way: Docker)
 
 ### **Prerequisite**
 
@@ -47,7 +52,7 @@ Start the API on port 8080:
 
 ### **Step 3: Access the Dashboard**
 
-Open the `client.html` file in your browser (or use "Live Server" in VS Code).
+Open the `index.html` file in your browser (or use "Live Server" in VS Code).
 
 ---
 
@@ -58,11 +63,18 @@ The system exposes a single POST endpoint for batch processing.
 **Payload:** Multipart File (`.csv`)
 
 ### **Input CSV Format**
-The input file must follow this specific column structure (headers are required):
-```
-Customer ID, Credit Limit, Utilisation %, Avg Payment Ratio, Min Due Paid Frequency, Merchant Mix Index, Cash Withdrawal %, Recent Spend Change %
-C001, 165000, 12, 32, 66, 0.73, 12, -21
-```
+
+The input file must follow this specific column structure (headers are required). Numeric fields should be plain numbers (no % symbol).
+
+| Customer ID | Credit Limit | Utilisation % | Avg Payment Ratio | Min Due Paid Frequency | Merchant Mix Index | Cash Withdrawal % | Recent Spend Change % |
+|-------------|--------------:|--------------:|------------------:|------------------------:|--------------------:|------------------:|----------------------:|
+| C001        |       165000 |            12 |                32 |                      66 |                0.73 |                12 |                   -21 |
+
+Notes:
+- Header names must match exactly.
+- Percentage columns are numeric values (e.g., 12 for 12%).
+- Rows may be comma-separated (CSV).
+
 ### **Output JSON Response**
 
 The API returns a JSON array of customer object enriched with a `riskFlag`:
