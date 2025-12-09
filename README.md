@@ -9,7 +9,7 @@
 
 **Demo Page:** <a href="https://demo-omega-blue.vercel.app/" target="_blank" rel="noopener noreferrer">https://demo-omega-blue.vercel.app/</a>
 
-**Docker image:** [![Docker Image](https://img.shields.io/badge/docker-image-blue)] [https://hub.docker.com/repository/docker/souravsarania/javaapi/general](https://hub.docker.com/repository/docker/souravsarania/javaapi/general)
+**Docker image:** ![Docker Image](https://img.shields.io/badge/docker-image-blue) [https://hub.docker.com/repository/docker/souravsarania/javaapi/general](https://hub.docker.com/repository/docker/souravsarania/javaapi/general)
 
 ---
 
